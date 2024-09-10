@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 #from app.accounts.models import PasswordReset
 from app.accounts.models import User
 
-# Create your views here.
+
 def login_custom_view(request):
 	if request.method == 'POST':
 		username = request.POST['username']

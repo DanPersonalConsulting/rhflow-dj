@@ -23,7 +23,7 @@
 						{% for field in form %}
 							<div class="form-group
 								{% if field.errors %} has-error {% endif %}">
-								{% render_field field class="form-control py-4" placeholder=field.label%}
+								{% render_field field class="form-control py-2 mb-2" placeholder=field.label%}
 								{% for error in field.errors %}
 									<span class="help-block form-control">{{ error }}</span>
 								{% endfor %}
