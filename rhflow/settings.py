@@ -15,8 +15,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.accounts',
     
+    # apps
+    'app.accounts',
+    'app.base',
+    
+    
+    #lib externa
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -97,11 +103,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # LOGIN_URL = '/accounts/login/'
-# LOGIN_REDIRECT_URL = 'based:home'
+# LOGIN_REDIRECT_URL = 'base:home'
 # LOGOUT_URL = '/accounts/logout'
 # LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-#AUTH_USER_MODEL = 'accounts.User' # Liberar assim que Danilo defina um novo arquivo de Usuario
+AUTH_USER_MODEL = 'accounts.User' 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'app.accounts.backends.ModelBackend',
