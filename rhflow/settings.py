@@ -18,6 +18,9 @@ INSTALLED_APPS = [
     
     # apps
     'app.accounts',
+    'app.funcionario',
+    'app.empresa',
+    'app.cargo',
     'app.base',
     
     
