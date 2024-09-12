@@ -49,6 +49,10 @@ server {
         proxy_pass http://unix:$WWW_ROOT/$tenant/app.sock;
         proxy_redirect off;
     }
+    
+    location /staticfiles {
+        alias $WWW_ROOT/$tenant/static;
+    }
 }
 
 EOF"
