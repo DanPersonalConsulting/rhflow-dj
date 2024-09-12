@@ -42,7 +42,7 @@ for tenant in "${tenants[@]}"; do
     sudo bash -c "cat > /etc/nginx/sites-available/$tenant << EOF
 server {
     listen 80;
-    server_name $tenant;
+    server_name $tenant.lorenzi.net.br;
 
     location / {
         include proxy_params;

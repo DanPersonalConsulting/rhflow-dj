@@ -6,7 +6,7 @@ from decouple import config
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = config('DEBUG')
 SECRET_KEY = config('SECRET_KEY')
-ALLOWED_HOSTS = ['*.lorenzi.net.br', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.lorenzi.net.br', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
