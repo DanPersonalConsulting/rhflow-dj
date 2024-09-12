@@ -13,9 +13,10 @@
               Cadastros
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Funcionário</a></li>
               <li><a class="dropdown-item" href="#">Empresa</a></li>
               <li><a class="dropdown-item" href="#">Cargo</a></li>
+              <li><a class="dropdown-item" href="#">Funcionário</a></li>
+              
             </ul>
           </li>
         </ul>
@@ -32,10 +33,10 @@
                    height="30">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuUser">
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
+              <li><a class="dropdown-item load-content" href="{% url 'accounts:editar_perfil' %}" data-url="{% url 'accounts:editar_perfil' %}">Perfil</a></li>
               <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
               <li><a class="dropdown-item" href="#">Configurações</a></li>
-              <li><a class="dropdown-item" href="#">Sair</a></li>
+              <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Sair</a></li>
             </ul>
           </li>
         </ul>

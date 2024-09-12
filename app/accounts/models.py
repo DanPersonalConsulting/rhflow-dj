@@ -8,6 +8,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField('Nome completo', max_length=100,)
     username = models.CharField('Username', max_length=50, unique=True,  blank=True)
     email = models.EmailField('Email', unique=True)
+    avatar = models.ImageField('Avatar', upload_to='avatars/', blank=True, null=True)
+
     slug = models.SlugField('slug', unique=True, max_length=150)
 
     is_active = models.BooleanField('Ativo ?', blank=True, default=True)

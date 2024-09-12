@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def nova_empresa_view(request):
+    pass
