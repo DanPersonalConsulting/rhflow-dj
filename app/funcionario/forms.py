@@ -1,29 +1,28 @@
-# forms.py
 from django import forms
 from .models import Funcionario
 
-class FuncionarioForm(forms.ModelForm):
-    class Meta:
-        model = Funcionario
-        fields = '__all__'  
-        widgets = {
-            'data_nascimento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'data_inicio': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'nome': forms.TextInput(attrs={'class': 'form-control'}),
-            'matricula': forms.TextInput(attrs={'class': 'form-control'}),
-            'cpf': forms.TextInput(attrs={'class': 'form-control'}),
-            'telefone': forms.TextInput(attrs={'class': 'form-control'}),
-            'genero': forms.Select(attrs={'class': 'form-select'}),
-            'raca_cor': forms.TextInput(attrs={'class': 'form-control'}),
-            'nacionalidade': forms.TextInput(attrs={'class': 'form-control'}),
-            'escolaridade': forms.TextInput(attrs={'class': 'form-control'}),
-            'cep': forms.TextInput(attrs={'class': 'form-control'}),
-            'endereco': forms.TextInput(attrs={'class': 'form-control'}),
-            'cidade': forms.TextInput(attrs={'class': 'form-control'}),
-            'uf': forms.TextInput(attrs={'class': 'form-control'}),
-            'ativo': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'regime_contrato': forms.TextInput(attrs={'class': 'form-control'}),
-            'motivo_termino': forms.TextInput(attrs={'class': 'form-control'}),
-            'local_de_trabalho': forms.TextInput(attrs={'class': 'form-control'}),
-            'gestor': forms.Select(attrs={'class': 'form-select'}),
-        }
+class FuncionarioForm(forms.Form):
+    nome = forms.CharField(max_length=150, label='Nome', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    matricula = forms.CharField(max_length=20, label='Matrícula', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cpf = forms.CharField(max_length=11, label='CPF', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    telefone = forms.CharField(max_length=15, required=False, label='Telefone', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    data_nascimento = forms.DateField(label='Data de Nascimento', widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}))
+    genero = forms.ChoiceField(choices=[
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+        ('O', 'Outro'),
+        ('N', 'Prefiro não informar')
+    ], label='Gênero', widget=forms.Select(attrs={'class': 'form-control'}))
+    raca_cor = forms.CharField(max_length=50, label='Raça/Cor', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    nacionalidade = forms.CharField(max_length=50, label='Nacionalidade', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    escolaridade = forms.CharField(max_length=50, label='Escolaridade', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cep = forms.CharField(max_length=8, label='CEP', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    endereco = forms.CharField(max_length=255, label='Endereço', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cidade = forms.CharField(max_length=100, label='Cidade', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    uf = forms.CharField(max_length=2, label='UF', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    data_inicio = forms.DateField(label='Data de Início', widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}))
+    ativo = forms.BooleanField(required=False, label='Ativo', widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
+    regime_contrato = forms.CharField(max_length=50, label='Regime de Contrato', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    motivo_termino = forms.CharField(max_length=255, required=False, label='Motivo do Término', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    local_de_trabalho = forms.CharField(max_length=100, label='Local de Trabalho', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    gestor = forms.Select(attrs={'class': 'form-control'})

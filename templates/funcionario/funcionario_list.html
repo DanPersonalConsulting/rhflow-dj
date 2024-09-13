@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Funcionários</h2>
+    <a href="{% url 'funcionario_create' %}" class="btn btn-primary mb-3">Adicionar Funcionário</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>CPF</th>
+                <th>Data de Início</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for funcionario in funcionarios %}
+                <tr>
+                    <td>{{ funcionario.nome }}</td>
+                    <td>{{ funcionario.matricula }}</td>
+                    <td>{{ funcionario.cpf }}</td>
+                    <td>{{ funcionario.data_inicio }}</td>
+                    <td>
+                        <a href="{% url 'funcionario_update' funcionario.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="{% url 'funcionario_delete' funcionario.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
