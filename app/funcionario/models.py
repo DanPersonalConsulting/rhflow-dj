@@ -1,6 +1,5 @@
 from django.db import models
 from app.abstractmodel.models import TimestampableMixin
-from app.accounts.models import User
 
 class Funcionario(TimestampableMixin):
     nome = models.CharField(max_length=150, verbose_name='Nome')
@@ -38,7 +37,12 @@ class Funcionario(TimestampableMixin):
         related_name='subordinados',
         verbose_name='Gestor'
     )
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')
+
+    class Meta:
+        db_table = 'funcionario'  
+        verbose_name = 'Funcionario'
+        verbose_name_plural = 'Funcionarios'
+        ordering = ['matricula', 'data_inicio' ]
 
     def __str__(self):
         return self.nome

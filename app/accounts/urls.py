@@ -10,7 +10,7 @@ from .views import (
 
 )
 
-app_name = 'app.accounts'
+app_name = 'app.account'
 
 urlpatterns = [
     path('login/', login_custom_view , name='login'),

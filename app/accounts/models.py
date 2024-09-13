@@ -2,6 +2,7 @@ from uuid import uuid4
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, UserManager
+from app.funcionario.models import Funcionario
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -9,6 +10,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('Username', max_length=50, unique=True,  blank=True)
     email = models.EmailField('Email', unique=True)
     avatar = models.ImageField('Avatar', upload_to='avatars/', blank=True, null=True)
+    funcionario = models.ForeignKey(Funcionario, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Funcionario')
 
     slug = models.SlugField('slug', unique=True, max_length=150)
 
@@ -23,6 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['name', 'username']
 
     class Meta:
+        db_table = 'user'  
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
         ordering = ['is_active', 'is_staff' ]

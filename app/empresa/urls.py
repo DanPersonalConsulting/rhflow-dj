@@ -1,12 +1,11 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
-from .views import (
-   nova_empresa_view,
+from .views import empresa_list, empresa_create, empresa_update, empresa_delete
 
-)
-
-app_name = 'app.empresa'
+app_name='app.empresa'
 
 urlpatterns = [
-    path('nova_empresa/', nova_empresa_view, name='empresa'),
+    path('list/', empresa_list, name='empresa_list'),        
+    path('create/', empresa_create, name='empresa_create'), 
+    path('<int:pk>/update/', empresa_update, name='empresa_update'),  
+    path('<int:pk>/delete/', empresa_delete, name='empresa_delete'), 
 ]

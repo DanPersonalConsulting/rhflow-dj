@@ -16,6 +16,14 @@ class Empresa(TimestampableMixin):
     logomarca = models.ImageField(upload_to='logomarcas/', blank=True, null=True, verbose_name='Logomarca')
     cnae = models.CharField(max_length=10, verbose_name='CNAE')
     porte = models.ForeignKey('Porte', on_delete=models.SET_NULL, null=True, verbose_name='Porte')
+    organizacao = models.ForeignKey('Organizacao', on_delete=models.SET_NULL, null=True, verbose_name='Organizacao')
+
+    class Meta:
+        db_table = 'empresa'
+        verbose_name = 'Empresa'
+        verbose_name_plural = 'Empresas'
+        ordering = ['cnpj', 'cnae']
+
 
     def __str__(self):
         return self.nome_fantasia
@@ -25,14 +33,37 @@ class Porte(TimestampableMixin):
     porte = models.CharField(max_length=50, unique=True, verbose_name='Porte')
     descricao = models.TextField(blank=True, verbose_name='Descrição')
 
+    class Meta:
+        db_table = 'porte'
+        verbose_name = 'Porte'
+        verbose_name_plural = 'Portes'
+    
+        
     def __str__(self):
         return self.porte
+    
+class Organizacao(TimestampableMixin):
+    nome = models.CharField(max_length=50, verbose_name='Nome')
+    usuario_admin = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')
 
+    class Meta:
+        db_table = 'organizacao'
+        verbose_name = 'Organizacao'
+        verbose_name_plural = 'Organizacoes'
+    
+    def __str__(self):
+        return self.nome
+    
 
 class GestorRh(TimestampableMixin):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name='Empresa')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')
 
+    class Meta:
+        db_table = 'gestor_rh'
+        verbose_name = 'GestorRH'
+        verbose_name_plural = 'GestoresRH'
+    
     def __str__(self):
         return f'{self.usuario.username} - {self.empresa.nome_fantasia}'
 
@@ -45,6 +76,12 @@ class TabelaSalarial(TimestampableMixin):
     simulacao = models.BooleanField(default=False, verbose_name='Simulação')
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name='Empresa')
 
+    class Meta:
+        db_table = 'tabela_salarial'
+        verbose_name = 'TabelaSalarial'
+        verbose_name_plural = 'TabelasSalariais'
+        ordering = ['versao', 'ativa']
+    
     def __str__(self):
         return f'Versão {self.versao} - {self.empresa.nome_fantasia}'
 
@@ -56,5 +93,11 @@ class ClasseSalarial(TimestampableMixin):
     final = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Final')
     tabela_salarial = models.ForeignKey(TabelaSalarial, on_delete=models.CASCADE, verbose_name='Tabela Salarial')
 
+    class Meta:
+        db_table = 'classe_salarial'
+        verbose_name = 'ClasseSalarial'
+        verbose_name_plural = 'ClassesSalariais'
+        ordering = ['nome']
+        
     def __str__(self):
         return f'{self.nome} - {self.tabela_salarial.versao}'

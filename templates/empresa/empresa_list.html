@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Empresas</h2>
+    <a href="{% url 'empresa_create' %}" class="btn btn-primary mb-3">Adicionar Empresa</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Razão Social</th>
+                <th>Nome Fantasia</th>
+                <th>CNPJ</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empresa in empresas %}
+                <tr>
+                    <td>{{ empresa.razao_social }}</td>
+                    <td>{{ empresa.nome_fantasia }}</td>
+                    <td>{{ empresa.cnpj }}</td>
+                    <td>
+                        <a href="{% url 'empresa_update' empresa.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="{% url 'empresa_delete' empresa.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
