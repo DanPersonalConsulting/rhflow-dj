@@ -69,6 +69,24 @@ EOF"
     echo "${tenant} deployed successfully"
 done
 
+if sudo [ ! -d /etc/letsencrypt/live/lorenzi.net.br ]; then
+    echo "certificate lorenzi.net.br not found. "
+    echo "deleting old certificates, if exists..."
+    sudo certbot delete -n --cert-name lorenzi.net.br
+    echo "creating new certificate"
+    sudo certbot certonly --nginx \
+        -d lorenzi.net.br \
+        -d *.lorenzi.net.br \
+        -m danilo.lorenzi@gmail.com \
+        -n --agree-tos
+else
+    echo "certificate lorenzi.net.br found. "
+fi
+
+echo "installing lorenzi.net.br certificate "
+sudo certbot install  --cert-name lorenzi.net.br
+
+
 echo "restarting nginx"
 sudo fuser -k 80/tcp
 sudo fuser -k 443/tcp
