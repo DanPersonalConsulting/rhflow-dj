@@ -111,3 +111,45 @@ def organizacao_delete(request, pk):
         organizacao.delete()
         return redirect('empresa:organizacao_list')
     return render(request, 'empresa/organizacao_confirm_delete.html', {'organizacao': organizacao})
+
+
+def gestor_rh_list(request):
+    gestores = GestorRh.objects.all()
+    return render(request, 'empresa/gestor_rh_list.html', {'gestores': gestores})
+
+
+def gestor_rh_create(request):
+    if request.method == 'POST':
+        form = GestorRhForm(request.POST)
+        if form.is_valid():
+            gestor = GestorRh(
+                empresa=form.cleaned_data['empresa'],
+                usuario=form.cleaned_data['usuario']
+            )
+            gestor.save()
+            return redirect('empresa:gestor_rh_list')
+    else:
+        form = GestorRhForm()
+    return render(request, 'empresa/gestor_rh_form.html', {'form': form, 'title': 'Criar Gestor de RH'})
+
+
+def gestor_rh_update(request, pk):
+    gestor = get_object_or_404(GestorRh, pk=pk)
+    if request.method == 'POST':
+        form = GestorRhForm(request.POST, instance=gestor)
+        if form.is_valid():
+            gestor.empresa = form.cleaned_data['empresa']
+            gestor.usuario = form.cleaned_data['usuario']
+            gestor.save()
+            return redirect('empresa:gestor_rh_list')
+    else:
+        form = GestorRhForm(initial={'empresa': gestor.empresa, 'usuario': gestor.usuario})
+    return render(request, 'empresa/gestor_rh_form.html', {'form': form, 'title': 'Editar Gestor de RH'})
+
+
+def gestor_rh_delete(request, pk):
+    gestor = get_object_or_404(GestorRh, pk=pk)
+    if request.method == 'POST':
+        gestor.delete()
+        return redirect('empresa:gestor_rh_list')
+    return render(request, 'empresa/gestor_rh_confirm_delete.html', {'gestor': gestor})

@@ -5,7 +5,7 @@ app_name = 'app.funcionario'
 
 urlpatterns = [
     path('list/', funcionario_list, name='funcionario_list'),        
-    path('create/', funcionario_create, name='funcionario_create'),  
-    path('<int:pk>/update/', funcionario_update, name='funcionario_update'),
+    path('novo/', funcionario_create, name='funcionario_create'),  
+    path('<int:pk>/editar/', funcionario_update, name='funcionario_update'),
     path('<int:pk>/delete/', funcionario_delete, name='funcionario_delete'), 
 ]
