@@ -1,0 +1,26 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      {% include "base/partials/name_system.html" %}
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+              <!-- Sem codigo no momento -->
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a href="{% url 'account:login' %}" class="btn btn-link">
+              Login
+            </a>  
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

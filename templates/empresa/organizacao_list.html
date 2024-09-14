@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Organizações</h2>
+    <a href="{% url 'organizacao_create' %}" class="btn btn-primary mb-2">Nova Organização</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Administrador</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for organizacao in organizacoes %}
+            <tr>
+                <td>{{ organizacao.id }}</td>
+                <td>{{ organizacao.nome }}</td>
+                <td>{{ organizacao.usuario_admin }}</td>
+                <td>
+                    <a href="{% url 'organizacao_update' organizacao.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'organizacao_delete' organizacao.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

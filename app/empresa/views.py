@@ -70,3 +70,44 @@ def empresa_delete(request, pk):
         return redirect('empresa_list')
     return render(request, 'empresa/empresa_confirm_delete.html', {'empresa': empresa})
 
+
+def organizacao_list(request):
+    organizacoes = Organizacao.objects.all()
+    return render(request, 'empresa/organizacao_list.html', {'organizacoes': organizacoes})
+
+
+def organizacao_create(request):
+    if request.method == 'POST':
+        form = OrganizacaoForm(request.POST)
+        if form.is_valid():
+            organizacao = Organizacao(
+                nome=form.cleaned_data['nome'],
+                usuario_admin=form.cleaned_data['usuario_admin']
+            )
+            organizacao.save()
+            return redirect('empresa:organizacao_list')
+    else:
+        form = OrganizacaoForm()
+    return render(request, 'empresa/organizacao_form.html', {'form': form, 'title': 'Criar Organização'})
+
+
+def organizacao_update(request, pk):
+    organizacao = get_object_or_404(Organizacao, pk=pk)
+    if request.method == 'POST':
+        form = OrganizacaoForm(request.POST, instance=organizacao)
+        if form.is_valid():
+            organizacao.nome = form.cleaned_data['nome']
+            organizacao.usuario_admin = form.cleaned_data['usuario_admin']
+            organizacao.save()
+            return redirect('empresa:organizacao_list')
+    else:
+        form = OrganizacaoForm(initial={'nome': organizacao.nome, 'usuario_admin': organizacao.usuario_admin})
+    return render(request, 'empresa/organizacao_form.html', {'form': form, 'title': 'Editar Organização'})
+
+
+def organizacao_delete(request, pk):
+    organizacao = get_object_or_404(Organizacao, pk=pk)
+    if request.method == 'POST':
+        organizacao.delete()
+        return redirect('empresa:organizacao_list')
+    return render(request, 'empresa/organizacao_confirm_delete.html', {'organizacao': organizacao})

@@ -1,8 +1,8 @@
 {% load static %}
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">RHFlow v1.0</a>
+    <div class="container">
+      {% include "base/partials/name_system.html" %}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -13,7 +13,7 @@
               Cadastros
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="">Organização</a></li>
+              <li><a class="dropdown-item" href="{% url 'empresa:organizacao_create' %}">Organização</a></li>
               <li><a class="dropdown-item" href="">Porte</a></li>
               <li><a class="dropdown-item" href="{% url 'empresa:empresa_create' %}">Empresa</a></li>
               <li><a class="dropdown-item" href="">Gestor RH</a></li>
@@ -24,22 +24,20 @@
           </li>
         </ul>
 
-        <!-- Menu Usuário à direita com Avatar -->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <!-- Usando a tag <img> para o avatar -->
-              <img src="{% if user.is_authenticated and user.profile.photo %}{{ user.profile.photo.url }}{% else %}{% static 'img/anonimo.png' %}{% endif %}" 
+              <img src="{% if user.is_authenticated and user.profile.photo %}{{ user.profile.photo.url }}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" 
                    alt="Avatar" 
                    class="rounded-circle" 
                    width="30" 
                    height="30">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuUser">
-              <li><a class="dropdown-item load-content" href="{% url 'account:editar_perfil' %}" data-url="{% url 'account:editar_perfil' %}">Perfil</a></li>
+              <li><a class="dropdown-item load-content" href="{% url 'account:editar_perfil' %}" data-url="{% url 'account:editar_perfil' %}">Editar Perfil</a></li>
               <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
               <li><a class="dropdown-item" href="#">Configurações</a></li>
-              <li><a class="dropdown-item" href="{% url 'account:logout' %}">Sair</a></li>
+              <li><a class="dropdown-item" href="{% url 'account:logout' %}">Logout</a></li>
             </ul>
           </li>
         </ul>

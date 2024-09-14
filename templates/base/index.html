@@ -1,0 +1,15 @@
+{% extends "structure.html" %}
+
+{% block title %}RHFlow{% endblock %}
+
+{% block header %}
+    {% include "base/partials/header_index.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        {% block content_index %}
+        {% endblock %}
+    </div>
+
+{% endblock %}
