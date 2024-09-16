@@ -6,10 +6,11 @@
     {% include "base/partials/header.html" %}
 {% endblock %}
 
-{% block content %}
-    <div class="container mt-5">
-        {% block content_area %}
-        {% endblock %}
-    </div>
 
+{% block content %}
+<div class="container-fluid vh-100 bg-light">
+    {% block content_area %}
+    {% endblock %}
+</div>
 {% endblock %}
+

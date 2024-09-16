@@ -37,7 +37,7 @@ def login_custom_view(request):
 @login_required
 def logout_custom_view(request):
 	logout(request)
-	return redirect('accounts:login')
+	return redirect('account:login')
 
 
 @login_required
