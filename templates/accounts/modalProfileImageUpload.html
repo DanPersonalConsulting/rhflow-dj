@@ -1,0 +1,191 @@
+<div class="modal fade" id="profilePictureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Atualizar Foto</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+
+                    <button type="button" class="btn btn-sm btn-primary mb-1" id="uploadBtn"
+                        onclick="document.getElementById('imageUpload').click()">Escolher Arquivo</button>
+                    <input type="file" id="imageUpload" class="form-control mb-0" style="display: none;"
+                        accept="image/*">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 ">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="image-container" id="imageContainer"
+                                        style=" width: 300px; height: 200px; border: 2px solid #ccc; position: relative; overflow: hidden;">
+                                        <img id="uploadedImage" src="" alt="Your Image" class="d-none"
+                                            style="position: absolute; cursor: move;">
+                                        <div class="crop-shape" style="position: absolute; width: 150px; height: 150px; border: 2px dashed #000; top: 50%;
+                                           left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="zoomImage" class="form-label">Redimensionar</label>
+                                    <input type="range" class="form-range" value="1" min=".4" max="2" step=".01" id="zoomImage" oninput="manualZoom()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 align-content-center">    
+                            <canvas id="canvas" style="border: 2px solid #ccc; width: 150px; height: 150px;"></canvas>
+                            <p class="text-center ">Pré-visualização</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form method="post" enctype="multipart/form-data" id="profileForm" action="{{ request.baseUrl }}/profile_image">
+                    <input type="file" style="display: none;" id="imageToSend" name="file">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input class="btn btn-primary" type="submit" value="Salvar" >
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let startX, startY, isDragging = false,
+        scale = 1;
+    const imageContainer = document.getElementById('imageContainer');
+    const uploadedImage = document.getElementById('uploadedImage');
+    const cropBtn = document.getElementById('cropBtn');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const imageToSend = document.getElementById('imageToSend');
+
+    document.getElementById('imageUpload').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                uploadedImage.src = e.target.result;
+                uploadedImage.classList.remove('d-none');
+                uploadedImage.style.top = '50%';
+                uploadedImage.style.left = '50%';
+                uploadedImage.style.transform = 'translate(-50%, -50%)';
+                startX = startY = 0;
+                isDragging = false;
+                scale = 1;
+            };
+
+            reader.onloadend = function () {
+                resetScale();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function startDrag(e) {
+        isDragging = true;
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
+        startX = clientX - uploadedImage.offsetLeft;
+        startY = clientY - uploadedImage.offsetTop;
+        e.preventDefault();
+    }
+
+    function manualZoom() {
+        scale = document.getElementById('zoomImage').value;
+        uploadedImage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        preview();
+    }
+    function resetScale(){
+        scale = 1;
+        uploadedImage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        document.getElementById('zoomImage').value = scale;
+        preview();
+    }
+    function zoomIn() {
+        scale += 0.1;
+        scale = Math.min(Math.max(0.4, scale), 3); // Limit scale between 0.4 and 3
+        uploadedImage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        preview();
+    }
+    function zoomOut() {
+        scale -= 0.1;
+        scale = Math.min(Math.max(0.4, scale), 3); // Limit scale between 0.4 and 3
+        uploadedImage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        preview();
+    }
+    function zoom(e) {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            scale *= 1.1;
+        } else {
+            scale *= 0.9;
+        }
+        scale = Math.min(Math.max(0.4, scale), 3); // Limit scale between 0.4 and 3
+        uploadedImage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        document.getElementById('zoomImage').value = scale;
+        preview();
+    }
+
+    function drag(e) {
+
+        if (isDragging) {
+            e.preventDefault(); // Prevent default behavior (scrolling)
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            const x = clientX - startX;
+            const y = clientY - startY;
+            uploadedImage.style.left = `${x}px`;
+            uploadedImage.style.top = `${y}px`;
+            preview();
+        }
+    }
+
+    function stopDrag() {
+        isDragging = false;
+    }
+
+    uploadedImage.addEventListener('wheel', zoom);
+    uploadedImage.addEventListener('mousedown', startDrag);
+    uploadedImage.addEventListener('touchstart', startDrag);
+
+    window.addEventListener('mousemove', drag);
+    window.addEventListener('touchmove', drag);
+
+    window.addEventListener('mouseup', stopDrag);
+    window.addEventListener('touchend', stopDrag);
+
+    function preview() {
+        const cropShape = document.querySelector('.crop-shape');
+        const rect = cropShape.getBoundingClientRect();
+        const imgRect = uploadedImage.getBoundingClientRect();
+
+        // Calculate the position of the cropped area
+        const cropX = (rect.left - imgRect.left) / scale;
+        const cropY = (rect.top - imgRect.top) / scale;
+        const cropWidth = 150 / scale;
+        const cropHeight = 150 / scale;
+
+        // Set canvas dimensions to match the crop area
+        canvas.width = 150;
+        canvas.height = 150;
+
+        // Draw the cropped image onto the canvas
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(uploadedImage, cropX, cropY, cropWidth, cropHeight, 0, 0, 150, 150);
+
+        // Convert the canvas to a data URL
+        const croppedImageDataURL = canvas.toBlob(function (blob) {
+            file = new File([blob], "image.png", {
+                type: "image/png"
+            }, 'image.png');
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            const fileList = dataTransfer.files;
+            imageToSend.files = fileList;
+        });
+    }
+
+
+</script>
