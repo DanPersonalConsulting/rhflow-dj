@@ -33,6 +33,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.name
 
+    
+    def get_short_name(self):
+        return str(self.name.split(' ')[0]).capitalize()
+
 
     def save(self, **kwargs):
         if not self.id:

@@ -14,15 +14,16 @@
             </div>
             <div class="col-sm-9">
                 <form method="post">
+                    {% csrf_token %}
                     <div class="card mb-4">
                         <div class="card-header">
                             Detalhes do Perfil
                             <div class="float-end">
                                 <a class="btn btn-sm btn-secondary" id="editButton" role="button"
-                                    onclick="toggleEditMode()">Edit</a>
+                                    onclick="toggleEditMode()">Editar</a>
                                 <a class="btn btn-sm btn-secondary me-1 cancelButton" onclick="toggleEditMode()"
                                     type="reset" style="display: none;">Cancelar</a>
-                                {% comment %} {{ form.submit(class='btn btn-sm btn-success float-end saveButton',  style='display: none;') }} {% endcomment %}
+                                <button class="btn btn-sm btn-success float-end saveButton" type="submit" style="display: none;">Salvar</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -31,7 +32,7 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-9">
                                     <label class="small mb-1" for="name">{{ form.name.label }}</label>
-                                    {{ form.name}}
+                                    {{ form.name }}
                                 </div>
                                 <div class="col-md-3">
                                     <label class="small mb-1" for="username">{{ form.username.label }}</label>
@@ -43,54 +44,14 @@
                                 <label class="small mb-1" for="email">{{ form.email.label }}</label>
                                 {{ form.email }}
                             </div>
-                            {% comment %} {% if current_user.has_role('servidor') %}
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-4">
-                                    <label class="small mb-1" for="matricula">{{ form.matricula.label }}</label>
-                                    {{ form.matricula(class="form-control", type="text", placeholder="matricula", disabled=True) }}
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="small mb-1" for="cargo">{{ form.cargo.label }}</label>
-                                    {{ form.cargo(class="form-control", type="text", placeholder="Nome", disabled=True) }}
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="small mb-1" for="lotacao">{{ form.lotacao.label }}</label>
-                                    {{ form.lotacao(class="form-control", type="text", placeholder="Nome", disabled=True) }}
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="telefone">{{ form.telefone.label }}</label>
-                                    {{ form.telefone(class="form-control", type="telefone", placeholder="Nome", disabled=True) }}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1"
-                                        for="data_nascimento">{{ form.data_nascimento.label }}</label>
-                                    {{ form.data_nascimento(class="form-control", type="date", placeholder="Nome", disabled=True) }}
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="data_admissao">{{ form.data_admissao.label }}</label>
-                                    {{ form.data_admissao(class="form-control", type="date", placeholder="Nome",  disabled=True) }}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="situacao">{{ form.situacao.label }}</label>
-                                    {{ form.situacao(class="form-control", type="text", placeholder="Nome", disabled=True) }}
-                                </div>
-                            </div>
-                            {% endif %} {% endcomment %}
-                            <button class="btn btn-lg btn-primary cancelButton" onclick="toggleEditMode()" type="reset"
-                                style="display: none;">Cancelar</button>
-                            {% comment %} {{ form.submit(class='btn btn-lg btn-success saveButton',  style='display: none;') }} {% endcomment %}
+                            <button class="btn btn-lg btn-primary cancelButton" onclick="toggleEditMode()" type="reset" style="display: none;">Cancelar</button>
+                            <button class="btn btn-lg btn-success saveButton" type="submit" style="display: none;">Salvar</button>
 
                         </div>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
 {% endblock %}
-
