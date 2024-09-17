@@ -44,8 +44,8 @@
                                 <label class="small mb-1" for="email">{{ form.email.label }}</label>
                                 {{ form.email }}
                             </div>
-                            <button class="btn btn-lg btn-primary cancelButton" onclick="toggleEditMode()" type="reset" style="display: none;">Cancelar</button>
-                            <button class="btn btn-lg btn-success saveButton" type="submit" style="display: none;">Salvar</button>
+                            {% comment %} <button class="btn btn-lg btn-primary cancelButton" onclick="toggleEditMode()" type="reset" style="display: none;">Cancelar</button>
+                            <button class="btn btn-lg btn-success saveButton" type="submit" style="display: none;">Salvar</button> {% endcomment %}
 
                         </div>
                     </div>
@@ -54,4 +54,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleEditMode() {
+        var goEditMode = document.getElementById('editButton').style.display !== 'none';
+        var formElements = document.querySelectorAll('.form-control');
+    
+        formElements.forEach(function (element) {
+            element.disabled = !goEditMode;
+        });
+    
+        document.getElementById('editButton').style.display = goEditMode ? 'none' : 'inline';
+        document.querySelectorAll('.cancelButton').forEach(function (element) {
+            element.style.display = goEditMode ? 'inline' : 'none';
+        });
+        document.querySelectorAll('.saveButton').forEach(function (element) {
+            element.style.display = goEditMode ? 'inline' : 'none';
+        });
+    }
+    
+</script>    
 {% endblock %}
