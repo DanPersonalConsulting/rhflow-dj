@@ -1,4 +1,6 @@
 from django import forms
+
+from app.accounts.models import User
 from .models import Empresa, Organizacao, GestorRh
 
 class EmpresaForm(forms.Form):
@@ -18,9 +20,11 @@ class EmpresaForm(forms.Form):
     organizacao = forms.Select(attrs={'class': 'form-control'})
 
 class OrganizacaoForm(forms.Form):
-    nome = forms.CharField(max_length=50, label='Nome', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    nome = forms.CharField(max_length=50, label='Descrição', widget=forms.TextInput(attrs={'class': 'form-control'}))
     usuario_admin = forms.Select(attrs={'class': 'form-control'})
 
+
 class GestorRhForm(forms.Form):
-    empresa = forms.Select(attrs={'class': 'form-control'})
-    usuario = forms.Select(attrs={'class': 'form-control'})
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    usuario = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+

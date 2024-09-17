@@ -1,100 +1,100 @@
 {% extends 'base/home.html' %}
 {% block content_area %}
-<div class="container">
-    <div class="pt-4">
-    <h4>{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Empresa</h4>
-    <form method="post" enctype="multipart/form-data" class="border p-2">
-        {% csrf_token %}
-        
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ form.razao_social.label_tag }}
-                    {{ form.razao_social }}
+<div class="container pt-4">
+    <div class="card text-dark bg-light mb-3">
+        <h4 class="card-header">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Empresa</h4>
+        <form method="post" enctype="multipart/form-data" class="card-body">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.razao_social.label_tag }}
+                        {{ form.razao_social }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.cnpj.label_tag }}
+                        {{ form.cnpj }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.cnae.label_tag }}
+                        {{ form.cnae }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form.cnpj.label_tag }}
-                    {{ form.cnpj }}
+            
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        {{ form.nome_fantasia.label_tag }}
+                        {{ form.nome_fantasia }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.logomarca.label_tag }}
+                        {{ form.logomarca }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form.cnae.label_tag }}
-                    {{ form.cnae }}
+            
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.cep.label_tag }}
+                        {{ form.cep }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.endereco.label_tag }}
+                        {{ form.endereco }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.numero.label_tag }}
+                        {{ form.numero }}
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="row mb-3">
-            <div class="col-md-8">
-                <div class="form-group">
-                    {{ form.nome_fantasia.label_tag }}
-                    {{ form.nome_fantasia }}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    {{ form.logomarca.label_tag }}
-                    {{ form.logomarca }}
-                </div>
-            </div>
-        </div>
-        
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form.cep.label_tag }}
-                    {{ form.cep }}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ form.endereco.label_tag }}
-                    {{ form.endereco }}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form.numero.label_tag }}
-                    {{ form.numero }}
-                </div>
-            </div>
-        </div>
 
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form.complemento.label_tag }}
-                    {{ form.complemento }}
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.complemento.label_tag }}
+                        {{ form.complemento }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.bairro.label_tag }}
+                        {{ form.bairro }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.cidade.label_tag }}
+                        {{ form.cidade }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form.uf.label_tag }}
+                        {{ form.uf }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form.bairro.label_tag }}
-                    {{ form.bairro }}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    {{ form.cidade.label_tag }}
-                    {{ form.cidade }}
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    {{ form.uf.label_tag }}
-                    {{ form.uf }}
-                </div>
-            </div>
-        </div>
 
-        <div class="p-2 border">
-        <button type="submit" class="btn btn-success ">Salvar</button>
-        <a href="{% url 'empresa:empresa_list' %}" class="btn btn-secondary">Cancelar</a>
-        </div>    
-    </form>
-</div>
+            <div class="p-2 border">
+                <button type="submit" class="btn btn-success ">Salvar</button>
+                <a href="{% url 'empresa:empresa_list' %}" class="btn btn-secondary">Cancelar</a>
+            </div>    
+        </form>
+    </div>
 </div>
 {% endblock %}

@@ -1,13 +1,25 @@
 {% extends 'base/home.html' %}
 
 {% block content_area %}
-<div class="container mt-4">
-    <h2>{{ title }}</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'empresa:organizacao_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+<div class="container pt-4">
+    <div class="card text-dark bg-light mb-3">
+        <h4 class="card-header">{{ title }}</h2>
+        <form method="POST" class="card-body">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        {{ form.nome.label_tag }}
+                        {{ form.nome }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border p-2">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="{% url 'empresa:organizacao_list' %}" class="btn btn-secondary">Cancelar</a>
+            </div>    
+        </form>
+    </div>   
 </div>
 {% endblock %}
