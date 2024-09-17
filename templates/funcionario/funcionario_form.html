@@ -1,12 +1,120 @@
 {% extends 'base/home.html' %}
 {% block content_area %}
-<div class="container mt-4">
-    <h2>{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Funcionário</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'funcionario:funcionario_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+<div class="container">
+    <div class="p-4">
+        <h4>{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Funcionário</h4>
+        <form method="post" class="border p-2">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.matricula.label_tag }}
+                        {{ form.matricula }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.nome.label_tag }}
+                        {{ form.nome }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.cpf.label_tag }}
+                        {{ form.cpf }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.data_nascimento.label_tag }}
+                        {{ form.data_nascimento }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.genero.label_tag }}
+                        {{ form.genero }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.raca_cor.label_tag }}
+                        {{ form.raca_cor }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.nacionalidade.label_tag }}
+                        {{ form.nacionalidade }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.regime_contrato.label_tag }}
+                        {{ form.regime_contrato }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.data_inicio.label_tag }}
+                        {{ form.data_inicio }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.local_trabalho.label_tag }}
+                        {{ form.local_trabalho }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form.motivo_termino.label_tag }}
+                        {{ form.motivo_termino }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.cep.label_tag }}
+                        {{ form.cep }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        {{ form.endereco.label_tag }}
+                        {{ form.endereco }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.cidade.label_tag }}
+                        {{ form.cidade }}
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        {{ form.uf.label_tag }}
+                        {{ form.uf }}
+                    </div>
+                </div>
+            </div>
+            <div class="border p-2">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="{% url 'funcionario:funcionario_list' %}" class="btn btn-secondary">Cancelar</a>
+            </div>    
+        </form>
+    </div>
 </div>
 {% endblock %}
