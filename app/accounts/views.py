@@ -4,11 +4,11 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm, AuthenticationForm
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import render, get_object_or_404, redirect
 #from app.accounts.forms import PasswordResetForm
 #from app.accounts.models import PasswordReset
-from app.accounts.forms import UserModelForm
+from app.accounts.forms import UserAvatarForm, UserModelForm
 from app.accounts.models import User
 
 
@@ -53,3 +53,19 @@ def editar_perfil(request):
     
     return render(request, 'accounts/editar_perfil.html', {'form': form})
     
+    
+
+def update_avatar(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    if request.method == 'PUT':
+        data = QueryDict(request.body).dict()
+        form = UserAvatarForm(data, request.FILES, instance=user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('account:editar_perfil')  
+    else:
+        form = UserAvatarForm(instance=user)
+
+    return render(request, 'accounts/editar_perfil.html', {'form': form})

@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import (
     editar_perfil,
+    update_avatar,
     login_custom_view,
     logout_custom_view,
     #change_password,
@@ -19,4 +20,6 @@ urlpatterns = [
     #path('recover/', password_reset, name='recover'),
     #path('allowed-new-password/<key>',password_reset_confirm, name='allowed-new-password'),
     path('editar_perfil/', editar_perfil, name='editar_perfil'),
+    path('update_avatar/<int:user_id>', update_avatar, name='update_avatar'),
+
 ]

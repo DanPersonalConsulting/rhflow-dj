@@ -39,7 +39,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form method="post" enctype="multipart/form-data" id="profileForm" action="{{ request.baseUrl }}/profile_image">
+                <form method="post" enctype="multipart/form-data" id="profileForm">
+                    {% csrf_token %}
                     <input type="file" style="display: none;" id="imageToSend" name="file">
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <input class="btn btn-primary" type="submit" value="Salvar" >
@@ -51,6 +52,30 @@
 
 
 <script>
+
+    const form = document.getElementById('profileForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(form.action, {
+            method: 'PUT',
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "{% url 'account:update_avatar' user_id=user.id %}";
+            } else {
+                console.error('Erro ao atualizar avatar');
+            }
+        });
+    });
+
     let startX, startY, isDragging = false,
         scale = 1;
     const imageContainer = document.getElementById('imageContainer');

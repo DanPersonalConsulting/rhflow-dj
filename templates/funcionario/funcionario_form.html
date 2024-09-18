@@ -7,13 +7,13 @@
             {% csrf_token %}
             
             <div class="row mb-3">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         {{ form.matricula.label_tag }}
                         {{ form.matricula }}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="form-group">
                         {{ form.nome.label_tag }}
                         {{ form.nome }}
@@ -26,24 +26,29 @@
                     </div>
                 </div>
             </div>
-            
             <div class="row mb-3">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         {{ form.data_nascimento.label_tag }}
                         {{ form.data_nascimento }}
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         {{ form.genero.label_tag }}
                         {{ form.genero }}
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         {{ form.raca_cor.label_tag }}
                         {{ form.raca_cor }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.escolaridade.label_tag }}
+                        {{ form.escolaridade }}
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -53,29 +58,29 @@
                     </div>
                 </div>
             </div>
-
             <div class="row mb-3">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form.regime_contrato.label_tag }}
-                        {{ form.regime_contrato }}
-                    </div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         {{ form.data_inicio.label_tag }}
                         {{ form.data_inicio }}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        {{ form.local_trabalho.label_tag }}
-                        {{ form.local_trabalho }}
+                        {{ form.regime_contrato.label_tag }}
+                        {{ form.regime_contrato }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.local_de_trabalho.label_tag }}
+                        {{ form.local_de_trabalho }}
                     </div>
                 </div>
             </div>
 
             <div class="row mb-3">
+               
                 <div class="col-md-12">
                     <div class="form-group">
                         {{ form.motivo_termino.label_tag }}
@@ -85,7 +90,13 @@
             </div>
 
             <div class="row mb-3">
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form.telefone.label_tag }}
+                        {{ form.telefone }}
+                    </div>
+                </div>
+                <div class="col-md-2">
                     <div class="form-group">
                         {{ form.cep.label_tag }}
                         {{ form.cep }}
@@ -97,7 +108,7 @@
                         {{ form.endereco }}
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         {{ form.cidade.label_tag }}
                         {{ form.cidade }}
