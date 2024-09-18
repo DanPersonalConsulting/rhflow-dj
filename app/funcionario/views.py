@@ -12,7 +12,7 @@ def funcionario_create(request):
         form = FuncionarioForm(request.POST)
         if form.is_valid():
             Funcionario.objects.create(**form.cleaned_data)
-            return redirect('funcionario:funcionario_list')
+            return redirect('funcionario:funcionario_create')
     else:
         form = FuncionarioForm()
     return render(request, 'funcionario/funcionario_form.html', {'form': form})
