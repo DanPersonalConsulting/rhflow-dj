@@ -1,35 +1,70 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container mt-4">
-    <h2>Funcionários</h2>
-    <a href="{% url 'funcionario_create' %}" class="btn btn-primary mb-3">Adicionar Funcionário</a>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Matrícula</th>
-                <th>CPF</th>
-                <th>Data de Início</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for funcionario in funcionarios %}
+{% extends "base/home.html" %}
+
+{% block content_area %}
+<div class="pt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4>Funcionários</h4>
+        <a href="{% url 'funcionario:funcionario_create' %}" class="btn btn-primary btn-sm">Novo Funcionário</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>Nome</th>
+                    <th>Empresa</th>
+                    <th>Matrícula</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Data de Nascimento</th>
+                    <th>Gênero</th>
+                    <th>Raça/Cor</th>
+                    <th>Nacionalidade</th>
+                    <th>Escolaridade</th>
+                    <th>Cidade</th>
+                    <th>UF</th>
+                    <th>Data de Início</th>
+                    <th>Ativo</th>
+                    <th>Regime de Contrato</th>
+                    <th>Local de Trabalho</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for funcionario in funcionarios %}
                 <tr>
                     <td>{{ funcionario.nome }}</td>
+                    <td>{{ funcionario.empresa }}</td>
                     <td>{{ funcionario.matricula }}</td>
                     <td>{{ funcionario.cpf }}</td>
+                    <td>{{ funcionario.telefone }}</td>
+                    <td>{{ funcionario.data_nascimento }}</td>
+                    <td>{{ funcionario.get_genero_display }}</td>
+                    <td>{{ funcionario.raca_cor }}</td>
+                    <td>{{ funcionario.nacionalidade }}</td>
+                    <td>{{ funcionario.escolaridade }}</td>
+                    <td>{{ funcionario.cidade }}</td>
+                    <td>{{ funcionario.uf }}</td>
                     <td>{{ funcionario.data_inicio }}</td>
-                    <td>
-                        <a href="{% url 'funcionario_update' funcionario.id %}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{% url 'funcionario_delete' funcionario.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
-                        </form>
+                    <td>{{ funcionario.ativo|yesno:"Sim,Não" }}</td>
+                    <td>{{ funcionario.regime_contrato }}</td>
+                    <td>{{ funcionario.local_de_trabalho }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'funcionario:funcionario_update' funcionario.id %}" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="{% url 'funcionario:funcionario_delete' funcionario.id %}" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
                     </td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                {% empty %}
+                <tr>
+                    <td colspan="17" class="text-center">Nenhum funcionário encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

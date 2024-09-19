@@ -1,15 +1,15 @@
 {% extends "base/home.html" %}
 
 {% block content_area %}
-<div class="container-fluid pt-4">
+<div class=" pt-4">
     <div class="d-flex justify-content-between align-items-center">
         <h4>Empresas da Organização</h4>
         <a href="{% url 'empresa:empresa_create' %}" class="btn btn-primary btn-sm">Nova Empresa</a>
     </div>
 
-    <div>
-        <table class="table table-striped table-bordered" style="max-width: 100% !important; overflow: scroll">
-            <thead class="table-dark">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-primary">
                 <tr>
                     <th>CNPJ</th>
                     <th>Nome Fantasia</th>
