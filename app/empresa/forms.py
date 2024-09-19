@@ -1,7 +1,7 @@
 from django import forms
 
 from app.accounts.models import User
-from .models import Empresa, Organizacao, GestorRh
+from .models import Empresa, Organizacao, GestorRh, Porte
 
 class EmpresaForm(forms.Form):
     razao_social = forms.CharField(max_length=150, label='Razão Social', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -16,11 +16,11 @@ class EmpresaForm(forms.Form):
     complemento = forms.CharField(max_length=100, required=False, label='Complemento', widget=forms.TextInput(attrs={'class': 'form-control'}))
     logomarca = forms.ImageField(required=False, label='Logomarca', widget=forms.FileInput(attrs={'class': 'form-control'}))
     cnae = forms.CharField(max_length=10, label='CNAE', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    porte = forms.Select(attrs={'class': 'form-control'})
-    organizacao = forms.Select(attrs={'class': 'form-control'})
+    porte = forms.ModelChoiceField(queryset=Porte.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    organizacao = forms.ModelChoiceField(queryset=Organizacao.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
 
 class OrganizacaoForm(forms.Form):
-    nome = forms.CharField(max_length=50, label='Descrição', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    organizacao_nome = forms.CharField(max_length=50, label='Descrição', widget=forms.TextInput(attrs={'class': 'form-control'}))
     usuario_admin = forms.Select(attrs={'class': 'form-control'})
 
 

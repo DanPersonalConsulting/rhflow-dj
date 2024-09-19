@@ -3,6 +3,7 @@ from app.abstractmodel.models import TimestampableMixin
 
 class Funcionario(TimestampableMixin):
     nome = models.CharField(max_length=150, verbose_name='Nome')
+    empresa = models.ForeignKey('empresa.Empresa', verbose_name="Empresa", on_delete=models.CASCADE, null=True, blank=True )
     matricula = models.CharField(max_length=20, unique=True, verbose_name='Matrícula')
     cpf = models.CharField(max_length=11, unique=True, verbose_name='CPF')
     telefone = models.CharField(max_length=15, blank=True, verbose_name='Telefone')

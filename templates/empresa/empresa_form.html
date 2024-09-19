@@ -2,10 +2,23 @@
 {% block content_area %}
 <div class="container pt-4">
     <div class="card text-dark bg-light mb-3">
-        <h4 class="card-header">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Empresa</h4>
+        <h4 class="card-header">{% if empresa_pk %}Editar{% else %}Adicionar{% endif %} Empresa</h4>
         <form method="post" enctype="multipart/form-data" class="card-body">
             {% csrf_token %}
-            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.organizacao.label_tag }}
+                        {{ form.organizacao }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.porte.label_tag }}
+                        {{ form.porte }}
+                    </div>
+                </div>
+            </div>
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -91,8 +104,8 @@
             </div>
 
             <div class="p-2 border">
-                <button type="submit" class="btn btn-success ">Salvar</button>
-                <a href="{% url 'empresa:empresa_list' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-success btn-sm ">Salvar</button>
+                <a href="{% url 'empresa:empresa_list' %}" class="btn btn-secondary btn-sm">Cancelar</a>
             </div>    
         </form>
     </div>

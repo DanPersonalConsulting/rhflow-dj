@@ -14,8 +14,8 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="{% url 'empresa:organizacao_create' %}">Organização</a></li>
-              <li><a class="dropdown-item" href="">Porte</a></li>
-              <li><a class="dropdown-item" href="{% url 'empresa:empresa_create' %}">Empresa</a></li>
+              {% comment %} <li><a class="dropdown-item" href="">Porte</a></li> {% endcomment %}
+              <li><a class="dropdown-item" href="{% url 'empresa:empresa_list' %}">Empresa</a></li>
               <li><a class="dropdown-item" href="{% url 'empresa:gestor_rh_create' %}">Gestor RH</a></li>
               <li><a class="dropdown-item" href="">Cargo</a></li>
               <li><a class="dropdown-item" href="{% url 'funcionario:funcionario_create' %}">Funcionário</a></li>

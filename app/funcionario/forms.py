@@ -1,8 +1,11 @@
 from django import forms
+
+from app.empresa.models import Empresa
 from .models import Funcionario
 
 class FuncionarioForm(forms.Form):
     nome = forms.CharField(max_length=150, label='Nome', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.none(), label="Empresa" , widget=forms.Select(attrs={'class': 'form-control'}))
     matricula = forms.CharField(max_length=20, label='Matrícula', widget=forms.TextInput(attrs={'class': 'form-control'}))
     cpf = forms.CharField(max_length=11, label='CPF', widget=forms.TextInput(attrs={'class': 'form-control'}))
     telefone = forms.CharField(max_length=15, required=False, label='Telefone', widget=forms.TextInput(attrs={'class': 'form-control'}))

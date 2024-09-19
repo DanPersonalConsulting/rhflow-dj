@@ -42,7 +42,7 @@ def empresa_update(request, pk):
             for key, value in form.cleaned_data.items():
                 setattr(empresa, key, value)
             empresa.save()
-            return redirect('empresa_list')
+            return redirect('empresa:empresa_list')
     else:
         form = EmpresaForm(initial={
             'razao_social': empresa.razao_social,
@@ -60,7 +60,7 @@ def empresa_update(request, pk):
             'porte': empresa.porte,
             'organizacao': empresa.organizacao,
         })
-    return render(request, 'empresa/empresa_form.html', {'form': form})
+    return render(request, 'empresa/empresa_form.html', {'form': form, 'empresa_pk': pk})
 
 
 def empresa_delete(request, pk):
@@ -81,8 +81,8 @@ def organizacao_create(request):
         form = OrganizacaoForm(request.POST)
         if form.is_valid():
             organizacao = Organizacao(
-                nome=form.cleaned_data['nome'],
-                usuario_admin=form.cleaned_data['usuario_admin']
+                organizacao_nome=form.cleaned_data['organizacao_nome'],
+                usuario_admin=request.user
             )
             organizacao.save()
             return redirect('empresa:organizacao_list')

@@ -40,11 +40,11 @@ class Porte(TimestampableMixin):
     
         
     def __str__(self):
-        return self.porte
+        return self.descricao
     
 class Organizacao(TimestampableMixin):
-    nome = models.CharField(max_length=50, verbose_name='Nome')
-    usuario_admin = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')
+    organizacao_nome = models.CharField(max_length=50, verbose_name='Organização')
+    usuario_admin = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Administrador')
 
     class Meta:
         db_table = 'organizacao'
@@ -52,7 +52,7 @@ class Organizacao(TimestampableMixin):
         verbose_name_plural = 'Organizacoes'
     
     def __str__(self):
-        return self.nome
+        return self.organizacao_nome
     
 
 class GestorRh(TimestampableMixin):
