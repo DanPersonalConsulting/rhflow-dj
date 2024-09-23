@@ -6,15 +6,14 @@ from app.empresa.models import ClasseSalarial
 class Cargo(TimestampableMixin):
     nome = models.CharField(max_length=150, verbose_name='Nome')
     codigo = models.CharField(max_length=20, unique=True, verbose_name='Código')
-    criticidade = models.CharField(max_length=50, verbose_name='Criticidade')
     missao = models.TextField(verbose_name='Missão')
     responsabilidade = models.TextField(verbose_name='Responsabilidade')
-    classe_salarial = models.ForeignKey(ClasseSalarial, on_delete=models.SET_NULL, null=True, verbose_name='Classe Salarial')
     complexidade = models.CharField(max_length=50, verbose_name='Complexidade')
-    tipo = models.CharField(max_length=50, verbose_name='Tipo')
     nivel = models.CharField(max_length=50, verbose_name='Nível')
+    trilha = models.CharField(max_length=50, verbose_name='Trilha')
     eixo = models.CharField(max_length=50, verbose_name='Eixo')
-    carga_horaria = models.PositiveIntegerField(verbose_name='Carga Horária')
+    classe = models.ForeignKey(ClasseSalarial, on_delete=models.SET_NULL, null=True, verbose_name='Classe Salarial')
+    
 
     def __str__(self):
         return f'{self.nome} ({self.codigo})'
