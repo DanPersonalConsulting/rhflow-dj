@@ -16,8 +16,8 @@ class EmpresaForm(forms.Form):
     complemento = forms.CharField(max_length=100, required=False, label='Complemento', widget=forms.TextInput(attrs={'class': 'form-control'}))
     logomarca = forms.ImageField(required=False, label='Logomarca', widget=forms.FileInput(attrs={'class': 'form-control'}))
     cnae = forms.CharField(max_length=10, label='CNAE', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    porte = forms.ModelChoiceField(queryset=Porte.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
-    organizacao = forms.ModelChoiceField(queryset=Organizacao.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    porte = forms.ModelChoiceField(queryset=Porte.objects.all(),empty_label="", widget=forms.Select(attrs={'class': 'form-control'}))
+    #organizacao = forms.ModelChoiceField(queryset=Organizacao.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
 
 class OrganizacaoForm(forms.Form):
     organizacao_nome = forms.CharField(max_length=50, label='Descrição', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -25,6 +25,6 @@ class OrganizacaoForm(forms.Form):
 
 
 class GestorRhForm(forms.Form):
-    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
-    usuario = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), empty_label="", widget=forms.Select(attrs={'class': 'form-control'}))
+    usuario = forms.ModelChoiceField(queryset=User.objects.all(), empty_label="" , widget=forms.Select(attrs={'class': 'form-control'}))
 

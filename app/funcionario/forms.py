@@ -5,6 +5,7 @@ from .models import Funcionario
 
 class FuncionarioForm(forms.Form):
     nome = forms.CharField(max_length=150, label='Nome', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(max_length=200, label='E-mail', widget=forms.TextInput(attrs={'class': 'form-control'}))
     empresa = forms.ModelChoiceField(queryset=Empresa.objects.none(), label="Empresa" , widget=forms.Select(attrs={'class': 'form-control'}))
     matricula = forms.CharField(max_length=20, label='Matrícula', widget=forms.TextInput(attrs={'class': 'form-control'}))
     cpf = forms.CharField(max_length=11, label='CPF', widget=forms.TextInput(attrs={'class': 'form-control'}))

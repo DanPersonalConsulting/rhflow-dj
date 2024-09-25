@@ -4,6 +4,16 @@ from app.empresa.models import ClasseSalarial
 
 
 class Cargo(TimestampableMixin):
+    
+    complex_choice = (
+        (1, "Cargos com atividades operacionais, cujos objetivos e produtos podem ser totalmente especificos (Exemplo: Aux. de Produção, Aux. Serviços Gerais."),
+        (2, "Realiza atividades rotineiras objetivos e produtos podem ser amplamente especificados (Operadores e Auxiliares Adm.)"),
+        (3, "Realiza tarefas concretas, cujos objetivos e implicações devem ser julgados de acordo com especificidades da situação (Assistentes e Técnicos.)"),
+        (4, "Analítico: Sugere mudanças nos padrões de atuação e organização da sua área, considerando os impactos em "),
+        (),
+    )
+    
+    
     nome = models.CharField(max_length=150, verbose_name='Nome')
     codigo = models.CharField(max_length=20, unique=True, verbose_name='Código')
     missao = models.TextField(verbose_name='Missão')

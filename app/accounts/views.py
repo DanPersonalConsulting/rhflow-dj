@@ -18,12 +18,8 @@ def login_custom_view(request):
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)
 		if not user == None:
-			is_first_login = user.last_login
 			login(request, user)
-			if not is_first_login:
-				return redirect('base:first-access', user.slug)
-			else:
-				return redirect('base:home')
+			return redirect('base:home')
 		else:
 			form_login = AuthenticationForm()
 	else:

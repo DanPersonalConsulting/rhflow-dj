@@ -2,7 +2,7 @@
 {% block content_area %}
 <div class="container pt-4">
     <div class="card text-dark bg-light mb-3">
-        <h4 class="card-header">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Funcionário</h4>
+        <div class="h5 card-header">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Funcionário</div>
         <form method="post" class="card-body">
             {% csrf_token %}
             

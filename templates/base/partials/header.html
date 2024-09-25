@@ -2,7 +2,14 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
     <div class="container">
-      {% include "base/partials/name_system.html" %}
+      <div class="row">
+          {% include "base/partials/name_system.html" %}
+          {% if user.organizacoes.count > 0 %}
+          <span class="fw-bold small-text">{{ user.organizacoes.all.0.organizacao_nome }}</span>
+          {% else %}
+          <span class="fw-light small-text"> Organização não Cadastrada</span>
+          {% endif %}
+      </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -10,14 +17,21 @@
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
             <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Cadastros
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="{% url 'empresa:organizacao_create' %}">Organização</a></li>
+              {% comment %} <li><a class="dropdown-item" href="{% url 'empresa:organizacao_create' %}">Organização</a></li> {% endcomment %}
               {% comment %} <li><a class="dropdown-item" href="">Porte</a></li> {% endcomment %}
-              <li><a class="dropdown-item" href="{% url 'empresa:empresa_list' %}">Empresa</a></li>
-              <li><a class="dropdown-item" href="{% url 'empresa:gestor_rh_create' %}">Gestor RH</a></li>
+              {% if user.is_authenticated and user.is_org_admin %}
+                <li><a class="dropdown-item" href="{% url 'empresa:gestor_rh_create' %}">Gestor RH</a></li>
+              {% endif %}
               <li><a class="dropdown-item" href="">Cargo</a></li>
+              <li><a class="dropdown-item" href="{% url 'empresa:empresa_list' %}">Empresa</a></li>
               <li><a class="dropdown-item" href="{% url 'funcionario:funcionario_list' %}">Funcionário</a></li>
             </ul>
           </li>
@@ -26,7 +40,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="me-2">{{ user.get_short_name }}</span> 
+              <span class="me-2 fw-bold small-text">{{ user.username }}</span> 
               <img src="{% if user.is_authenticated and user.avatar %}{{ user.avatar.url }}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" 
                    alt="Avatar" 
                    class="rounded-circle" 
