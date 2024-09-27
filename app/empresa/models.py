@@ -44,7 +44,7 @@ class Porte(TimestampableMixin):
     
 class Organizacao(TimestampableMixin):
     organizacao_nome = models.CharField(max_length=50, verbose_name='Organização')
-    usuario_admin = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Administrador', related_name='organizacoes')
+    usuario_admin = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Administrador', related_name='organizacoes', null=True, blank=True)
 
     class Meta:
         db_table = 'organizacao'
@@ -56,8 +56,8 @@ class Organizacao(TimestampableMixin):
     
 
 class GestorRh(TimestampableMixin):
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name='Empresa')
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, verbose_name='Empresa', null=True, blank=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário', related_name='gestores', null=True, blank=True)
 
     class Meta:
         db_table = 'gestor_rh'

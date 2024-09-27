@@ -22,8 +22,8 @@ INSTALLED_APPS = [
     'app.empresa',
     'app.cargo',
     'app.base',
-    
-    
+
+        
     #lib externa
     'widget_tweaks',
 ]

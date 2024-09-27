@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-from app.decorators import org_admin_required
+from app.decorators import org_admin_required, hr_manager_required
 from .forms import EmpresaForm, OrganizacaoForm, GestorRhForm
 from .models import Empresa, Organizacao, GestorRh
 
@@ -162,3 +162,16 @@ def gestor_rh_delete(request, pk):
         gestor.delete()
         return redirect('empresa:gestor_rh_list')
     return render(request, 'empresa/gestor_rh_confirm_delete.html', {'gestor': gestor})
+
+
+@hr_manager_required
+def empresas_relacionadas(request):
+    usuario = request.user
+    
+    if usuario.is_org_admin:
+        pass
+    empresas = GestorRh.objects.filter(usuario=request.user).select_related('empresa')
+    context = {
+        'empresas': [gestor.empresa for gestor in empresas]  
+    }
+    return render(request, 'empresa/empresas_relacionadas.html', context)

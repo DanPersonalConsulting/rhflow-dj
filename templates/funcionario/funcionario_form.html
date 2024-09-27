@@ -27,6 +27,12 @@
                 </div>
             </div>
             <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </div>
+                </div> 
                 <div class="col-md-2">
                     <div class="form-group">
                         {{ form.data_nascimento.label_tag }}
@@ -51,14 +57,15 @@
                         {{ form.escolaridade }}
                     </div>
                 </div>
+                
+            </div>
+            <div class="row mb-3">
                 <div class="col-md-3">
                     <div class="form-group">
                         {{ form.nacionalidade.label_tag }}
                         {{ form.nacionalidade }}
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col-md-3">
                     <div class="form-group">
                         {{ form.data_inicio.label_tag }}
@@ -71,7 +78,7 @@
                         {{ form.regime_contrato }}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
                         {{ form.local_de_trabalho.label_tag }}
                         {{ form.local_de_trabalho }}
@@ -80,7 +87,6 @@
             </div>
 
             <div class="row mb-3">
-               
                 <div class="col-md-12">
                     <div class="form-group">
                         {{ form.motivo_termino.label_tag }}

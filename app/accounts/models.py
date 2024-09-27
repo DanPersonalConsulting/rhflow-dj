@@ -14,8 +14,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     slug = models.SlugField('slug', unique=True, max_length=150)
 
-    is_hr_manager = models.BooleanField('Gestor de RH ?', blank=True, default=True)
-    is_org_admin = models.BooleanField('Admin. Org. ?', blank=True, default=True)
+    is_hr_manager = models.BooleanField('Gestor de RH ?', blank=True, default=False)
+    is_org_admin = models.BooleanField('Admin. Org. ?', blank=True, default=False)
     is_active = models.BooleanField('Ativo ?', blank=True, default=True)
     is_staff = models.BooleanField('É da Equipe ?', blank=True, default=False)
 

@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from app.accounts.models import User
 from .forms import FuncionarioForm
 from .models import Funcionario
 
@@ -9,10 +11,18 @@ def funcionario_list(request):
 
 def funcionario_create(request):
     if request.method == 'POST':
-        form = FuncionarioForm(request.POST)
+        form_data = request.POST.copy()
+        form_data['empresa'] = request.user.gestores.first().empresa
+        form = FuncionarioForm(form_data)
         if form.is_valid():
-            Funcionario.objects.create(**form.cleaned_data)
-            return redirect('funcionario:funcionario_create')
+            email = form.cleaned_data.pop('email')
+            funcionario = Funcionario.objects.create(**form.cleaned_data)
+            User.objects.create(
+                name=form.cleaned_data['nome'],
+                email=email,
+                funcionario=funcionario,
+            )
+            return redirect('funcionario:funcionario_list')
     else:
         form = FuncionarioForm()
     return render(request, 'funcionario/funcionario_form.html', {'form': form})

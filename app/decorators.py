@@ -9,3 +9,13 @@ def org_admin_required(function):
         else:
             raise PermissionDenied
     return wrap
+
+
+def hr_manager_required(function):
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.is_hr_manager:
+            return function(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    return wrap
