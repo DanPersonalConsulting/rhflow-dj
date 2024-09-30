@@ -2,17 +2,17 @@
 {% block content_area %}
 <div class="container pt-4">
     <div class="card text-dark bg-light mb-3">
-        <div class="h5 card-header">Empresas Relacionadas ao Gestor Atual</div>
+        <div class="h5 card-header fw-bold">Empresas Relacionadas ao Gestor Atual</div>
         <div class="card-body p-4">
             <form method="post" id="selecionarEmpresaForm">
                 {% csrf_token %}
                 <ul class="list-unstyled">
                     {% for empresa in empresas %}
-                    <li>
+                    <li class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="empresa_selecionada" id="empresa_{{ empresa.id }}" value="{{ empresa.id }}">
                             <label class="form-check-label" for="empresa_{{ empresa.id }}">
-                                {{ empresa.nome_fantasia }}
+                                {{ empresa.nome_fantasia.capitalize }}
                             </label>
                         </div>
                     </li>
@@ -20,7 +20,7 @@
                     <li>Você não está associado a nenhuma empresa.</li>
                     {% endfor %}
                 </ul>
-                <button type="button" id="selecionarEmpresaBtn" class="btn btn-primary mt-3">Selecionar Empresa</button>
+                <button type="button" id="selecionarEmpresaBtn" class="btn btn-primary btn-sm fw-bold mt-3">Selecionar Empresa</button>
             </form>
         </div>
     </div>

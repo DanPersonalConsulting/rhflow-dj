@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
 from app.accounts.models import User
+from app.empresa.models import Empresa
 from .forms import FuncionarioForm
 from .models import Funcionario
 
@@ -12,11 +13,15 @@ def funcionario_list(request):
 def funcionario_create(request):
     if request.method == 'POST':
         form_data = request.POST.copy()
-        form_data['empresa'] = request.user.gestores.first().empresa
         form = FuncionarioForm(form_data)
         if form.is_valid():
             email = form.cleaned_data.pop('email')
-            funcionario = Funcionario.objects.create(**form.cleaned_data)
+            id_empresa = form.cleaned_data.pop('empresa')
+            empresa = Empresa.objects.filter(id=id_empresa).first()
+            funcionario = Funcionario.objects.create(
+                **form.cleaned_data,
+                empresa=empresa
+            )
             User.objects.create(
                 name=form.cleaned_data['nome'],
                 email=email,
@@ -78,7 +83,7 @@ def funcionario_update(request, pk):
             'local_de_trabalho': funcionario.local_de_trabalho,
             'gestor': funcionario.gestor.id if funcionario.gestor else None,
         })
-    return render(request, 'funcionario/funcionario_form.html', {'form': form})
+    return render(request, 'funcionario/funcionario_form.html', {'form': form, 'funcionario_pk': pk})
 
 
 def funcionario_delete(request, pk):

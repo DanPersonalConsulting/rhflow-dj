@@ -3,8 +3,8 @@
 {% block content_area %}
 <div class="pt-4">
     <div class="d-flex justify-content-between align-items-center">
-        <div class="h5">Funcionários</div>
-        <a href="{% url 'funcionario:funcionario_create' %}" class="btn btn-primary btn-sm mb-2">+ Criar</a>
+        <div class="h5 fw-bold">Funcionários da Empresa {{  }}</div>
+        <a href="{% url 'funcionario:funcionario_create' %}" class="btn btn-primary btn-sm fw-bold mb-2">+ Criar</a>
     </div>
 
     <div class="table-responsive">

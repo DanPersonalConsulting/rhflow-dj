@@ -2,8 +2,8 @@
 {% block content_area %}
 <div class="container pt-4">
     <div class="card text-dark bg-light mb-3">
-        <div class="h5 card-header">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Funcionário</div>
-        <form method="post" class="card-body">
+        <div class="h5 fw-bold card-header">{% if funcionario_pk %}Editar{% else %}Adicionar{% endif %} Funcionário</div>
+        <form method="post" class="card-body" id="funcionarioForm">
             {% csrf_token %}
             
             <div class="row mb-3">
@@ -127,11 +127,21 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="empresa" id="empresa_selecionada">
+
             <div class="border p-2">
                 <button type="submit" class="btn btn-success btn-sm">Salvar</button>
-                <a href="{% url 'funcionario:funcionario_list' %}" class="btn btn-secondary btn-sm"">Cancelar</a>
+                <a href="{% url 'funcionario:funcionario_list' %}" class="btn btn-secondary btn-sm">Cancelar</a>
             </div>    
         </form>
     </div>
 </div>
+<script>
+    document.getElementById('funcionarioForm').addEventListener('submit', function(event) {
+        var empresaSelecionada = localStorage.getItem('empresaSelecionada');
+        if (empresaSelecionada) {
+            document.getElementById('empresa_selecionada').value = empresaSelecionada;
+        }
+    });
+</script>
 {% endblock %}
