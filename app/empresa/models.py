@@ -21,12 +21,12 @@ class Empresa(TimestampableMixin):
     class Meta:
         db_table = 'empresa'
         verbose_name = 'Empresa'
-        verbose_name_plural = 'Empresas'
+        verbose_name_plural = '3. Empresas'
         ordering = ['cnpj', 'cnae']
 
 
     def __str__(self):
-        return self.nome_fantasia
+        return str(self.nome_fantasia)
 
 
 class Porte(TimestampableMixin):
@@ -36,7 +36,7 @@ class Porte(TimestampableMixin):
     class Meta:
         db_table = 'porte'
         verbose_name = 'Porte'
-        verbose_name_plural = 'Portes'
+        verbose_name_plural = '1. Portes'
     
         
     def __str__(self):
@@ -49,7 +49,7 @@ class Organizacao(TimestampableMixin):
     class Meta:
         db_table = 'organizacao'
         verbose_name = 'Organizacao'
-        verbose_name_plural = 'Organizacoes'
+        verbose_name_plural = '2. Organização'
     
     def __str__(self):
         return self.organizacao_nome
@@ -62,7 +62,7 @@ class GestorRh(TimestampableMixin):
     class Meta:
         db_table = 'gestor_rh'
         verbose_name = 'GestorRH'
-        verbose_name_plural = 'GestoresRH'
+        verbose_name_plural = 'Gestores de RH'
     
     def __str__(self):
         return f'{self.usuario.username} - {self.empresa.nome_fantasia}'
@@ -78,8 +78,8 @@ class TabelaSalarial(TimestampableMixin):
 
     class Meta:
         db_table = 'tabela_salarial'
-        verbose_name = 'TabelaSalarial'
-        verbose_name_plural = 'TabelasSalariais'
+        verbose_name = 'Tabela Salarial'
+        verbose_name_plural = 'Tabelas Salariais'
         ordering = ['versao', 'ativa']
     
     def __str__(self):
@@ -95,8 +95,8 @@ class ClasseSalarial(TimestampableMixin):
 
     class Meta:
         db_table = 'classe_salarial'
-        verbose_name = 'ClasseSalarial'
-        verbose_name_plural = 'ClassesSalariais'
+        verbose_name = 'Classe Salarial'
+        verbose_name_plural = 'Classes Salariais'
         ordering = ['nome']
         
     def __str__(self):

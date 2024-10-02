@@ -1,4 +1,6 @@
 from uuid import uuid4
+from django.contrib.auth.hashers import make_password
+
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, UserManager
@@ -43,4 +45,5 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, **kwargs):
         if not self.id:
             self.slug = uuid4()
+            self.password = make_password('rhflow@123')
         super().save(**kwargs)

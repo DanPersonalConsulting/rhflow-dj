@@ -1,13 +1,22 @@
-<div class="text-logo">
-    <div>RHFlow</div>
+{% load static %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-2">
+        <img class="logo me-0" src="{% static 'img/logo_rhflow.png' %}" alt="Logo">
+    </div>    
+    <div class="col-4">
+        <span class="me-0 text-logo">RHFlow</span>
+    </div>
 </div>
-
 
 <style>
     .text-logo {
         font-size: 28px;
         font-weight: 900 !important;
         color: #092e20; 
-        text-align: center; 
+    }
+
+    .logo {
+        width: 65px;
+        height: auto; /* Para manter a proporção */
     }
 </style>

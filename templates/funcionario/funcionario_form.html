@@ -130,6 +130,7 @@
             <input type="hidden" name="empresa" id="empresa_selecionada">
 
             <div class="border p-2">
+
                 <button type="submit" class="btn btn-success btn-sm">Salvar</button>
                 <a href="{% url 'funcionario:funcionario_list' %}" class="btn btn-secondary btn-sm">Cancelar</a>
             </div>    
@@ -140,8 +141,15 @@
     document.getElementById('funcionarioForm').addEventListener('submit', function(event) {
         var empresaSelecionada = localStorage.getItem('empresaSelecionada');
         if (empresaSelecionada) {
-            document.getElementById('empresa_selecionada').value = empresaSelecionada;
+            try {
+                var empresaJson = JSON.parse(empresaSelecionada); 
+                var id_empresa = empresaJson.id; 
+                document.getElementById('empresa_selecionada').value = id_empresa;
+            } catch (error) {
+                console.error('Erro ao parsear o JSON de empresaSelecionada:', error);
+            }
         }
     });
 </script>
+
 {% endblock %}

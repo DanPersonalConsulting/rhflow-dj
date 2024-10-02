@@ -39,6 +39,9 @@
 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
+            <a class="fw-bold small-text" href="{% url 'empresa:empresas_relacionadas' %}">
+               <span id="empresaSelecionadaNome"></span> 
+            </a>
             <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="me-2 fw-bold small-text">{{ user.username }}</span> 
               <img src="{% if user.is_authenticated and user.avatar %}{{ user.avatar.url }}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" 
@@ -62,3 +65,13 @@
     </div>
   </nav>
 </header>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const empresaSelecionada = localStorage.getItem('empresaSelecionada');
+    if (empresaSelecionada) {
+      const empresa = JSON.parse(empresaSelecionada);
+      const empresaNomeSpan = document.getElementById('empresaSelecionadaNome');
+      empresaNomeSpan.textContent = `Empresa : ${empresa.nome}`; 
+    }
+  });
+</script>

@@ -14,8 +14,12 @@ from .views import (
 app_name = 'app.account'
 
 urlpatterns = [
-    path('login/', login_custom_view , name='login'),
+    path('', login_custom_view , name='login'),
     path('logout/', logout_custom_view, name='logout'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     #path('update-password/', change_password , name='update-password'),
     #path('recover/', password_reset, name='recover'),
     #path('allowed-new-password/<key>',password_reset_confirm, name='allowed-new-password'),

@@ -10,7 +10,7 @@
                     {% for empresa in empresas %}
                     <li class="mb-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="empresa_selecionada" id="empresa_{{ empresa.id }}" value="{{ empresa.id }}">
+                            <input class="form-check-input" type="radio" name="empresa_selecionada" id="empresa_{{ empresa.id }}" value="{{ empresa.id }}" data-nome="{{ empresa.nome_fantasia }}">
                             <label class="form-check-label" for="empresa_{{ empresa.id }}">
                                 {{ empresa.nome_fantasia.capitalize }}
                             </label>
@@ -21,6 +21,8 @@
                     {% endfor %}
                 </ul>
                 <button type="button" id="selecionarEmpresaBtn" class="btn btn-primary btn-sm fw-bold mt-3">Selecionar Empresa</button>
+                <a type="button" class="btn btn-secondary btn-sm fw-bold mt-3" href="{% url 'base:home' %}">Cancelar</a>
+                
             </form>
         </div>
     </div>
@@ -28,9 +30,10 @@
 
 <script>
     function verificarEmpresaSelecionada() {
-        const empresaSelecionadaId = localStorage.getItem('empresaSelecionada');
-        if (empresaSelecionadaId) {
-            const radioEmpresa = document.getElementById(`empresa_${empresaSelecionadaId}`);
+        const empresaSelecionada = localStorage.getItem('empresaSelecionada');
+        if (empresaSelecionada) {
+            const empresa = JSON.parse(empresaSelecionada);
+            const radioEmpresa = document.getElementById(`empresa_${empresa.id}`);
             if (radioEmpresa) {
                 radioEmpresa.checked = true;
             }
@@ -38,11 +41,22 @@
     }
 
     document.addEventListener('DOMContentLoaded', verificarEmpresaSelecionada);
+    
     document.getElementById('selecionarEmpresaBtn').addEventListener('click', function(event) {
-    const empresaSelecionada = document.querySelector('input[name="empresa_selecionada"]:checked');
+        const empresaSelecionada = document.querySelector('input[name="empresa_selecionada"]:checked');
 
         if (empresaSelecionada) {
-            localStorage.setItem('empresaSelecionada', empresaSelecionada.value);
+            const idEmpresa = empresaSelecionada.value;
+            const nomeEmpresa = empresaSelecionada.getAttribute('data-nome');
+            
+            const empresa = {
+                id: idEmpresa,
+                nome: nomeEmpresa
+            };
+            
+            localStorage.setItem('empresaSelecionada', JSON.stringify(empresa));
+            location.reload();
+
         } else {
             alert("Por favor, selecione uma empresa.");
         }

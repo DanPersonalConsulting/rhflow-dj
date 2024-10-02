@@ -41,8 +41,8 @@ class Funcionario(TimestampableMixin):
 
     class Meta:
         db_table = 'funcionario'  
-        verbose_name = 'Funcionario'
-        verbose_name_plural = 'Funcionarios'
+        verbose_name = 'Dados Cadastrai'
+        
         ordering = ['matricula', 'data_inicio' ]
 
     def __str__(self):

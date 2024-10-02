@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
+from app.accounts.models import User
 from app.decorators import org_admin_required, hr_manager_required
 from .forms import EmpresaForm, OrganizacaoForm, GestorRhForm
 from .models import Empresa, Organizacao, GestorRh
@@ -12,16 +13,21 @@ def empresa_list(request):
 
 def empresa_create(request):
     if request.method == 'POST':
+        usuario = request.user
         form = EmpresaForm(request.POST, request.FILES)
         if form.is_valid():
             organizacao = Organizacao.objects.filter(
-                usuario_admin=request.user).first()
+                usuario_admin=usuario).first()
             if not organizacao:
                 pass
             else:
-                Empresa.objects.create(
+                empresa = Empresa.objects.create(
                     **form.cleaned_data,
                     organizacao=organizacao)
+                GestorRh.objects.create(
+                    empresa = empresa,
+                    usuario = usuario
+                )
             return redirect('empresa:empresa_list')
     else:
         form = EmpresaForm()
@@ -131,11 +137,15 @@ def gestor_rh_create(request):
     if request.method == 'POST':
         form = GestorRhForm(request.POST)
         if form.is_valid():
+            usuario=form.cleaned_data['usuario']
             gestor = GestorRh(
                 empresa=form.cleaned_data['empresa'],
-                usuario=form.cleaned_data['usuario']
+                usuario=usuario
             )
             gestor.save()
+            usuario.is_hr_manager = True
+            usuario.save()
+            
             return redirect('empresa:gestor_rh_list')
     else:
         form = GestorRhForm()

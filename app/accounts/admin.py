@@ -7,20 +7,30 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Informações Pessoais'), {'fields': ('name', 'username', 'avatar', 'funcionario')}),
-        (_('Permissões'), {'fields': ('is_active', 'is_staff', 'is_superuser')}),
-        (_('Datas Importantes'), {'fields': ('date_joined',)}),  # Remover esse campo
+        (_('Permissões'), {
+            'fields': (
+                'is_active', 
+                'is_staff', 
+                'is_superuser', 
+                'is_hr_manager', 
+                'is_org_admin', 
+                'groups', 
+                'user_permissions',
+            )
+        }),
+        (_('Datas Importantes'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'name', 'username', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser'),
+            'fields': ('email', 'name', 'username', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser', 'is_hr_manager', 'is_org_admin', 'groups'),
         }),
     )
     list_display = ('email', 'name', 'is_staff', 'is_hr_manager', 'is_org_admin', 'is_active', 'is_superuser')
-    list_filter = ('is_staff', 'is_hr_manager', 'is_org_admin', 'is_active')
+    list_filter = ('is_staff', 'is_hr_manager', 'is_org_admin', 'is_active', 'groups')
     search_fields = ('email', 'name', 'username')
     ordering = ('email',)
-    filter_horizontal = ()
-    readonly_fields = ('date_joined',)  # Tornar 'date_joined' somente leitura
+    filter_horizontal = ('groups', 'user_permissions')
+    readonly_fields = ('date_joined', 'last_login') 
 
 admin.site.register(User, UserAdmin)

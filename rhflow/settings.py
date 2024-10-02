@@ -9,6 +9,7 @@ SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = ['.lorenzi.net.br', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,4 +141,52 @@ MESSAGE_TAGS = {
     messages_constants.SUCCESS: 'success',
     messages_constants.WARNING: 'warning',
     messages_constants.ERROR: 'danger',
+}
+
+JAZZMIN_SETTINGS = {
+    "site_title": "RHFlow",
+
+    "site_header": "RHFlow",
+
+    "site_brand": "RHFlow",
+
+   "icons": {
+        "auth": "fas fa-users-cog",
+        "accounts.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        
+    },
+
+   "welcome_sign": "Bem-vindo a Administração do RHFlow",
+
+    "copyright": "Zeppelin Consulting",
+
+   
+
+    ############
+    # Top Menu #
+    ############
+
+    "topmenu_links": [
+
+        {"model": "auth.User"},
+
+        {"app": "books"},
+    ],
+
+    #############
+    # User Menu #
+    #############
+
+    "usermenu_links": [
+        {"model": "auth.user"}
+    ],
+
+   
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+
+
+    "show_ui_builder": False,
+    
 }

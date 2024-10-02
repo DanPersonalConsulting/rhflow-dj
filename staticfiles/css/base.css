@@ -1,0 +1,59 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+a {
+    text-decoration: none!important;
+}
+
+
+.no-select {
+  user-select: none;
+}
+
+
+.scrolling-wrapper {
+    display: flex !important;
+	flex-wrap: nowrap !important;
+	overflow-x: scroll !important;
+}
+
+.scrolling-wrapper-v {
+   display: flex;
+   flex-wrap: wrap;
+   overflow-y: scroll;
+}
+
+.card {
+  flex: 0 0 auto !important;
+}
+
+.btn-sm {
+    font-size: 0.8em !important;
+}
+
+
+.bg-light {
+    background-color: #f0f2f5 !important;
+}
+
+.border-personal {
+    padding-left: 6pt !important;
+    padding-right: 6pt !important;
+    border-radius: 25pt !important;
+}
+
+.custom-rounded {
+    border-radius: 10px!important;
+}
+
+.custom-rounded-img {
+    border-radius: 10px 10px 0px 0px!important;
+}
+
+.form-control:focus {
+    /*border-color: transparent !important;*/
+    box-shadow: none !important;
+
+}
