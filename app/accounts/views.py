@@ -6,10 +6,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm, AuthenticationForm
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import render, get_object_or_404, redirect
-#from app.accounts.forms import PasswordResetForm
-#from app.accounts.models import PasswordReset
 from app.accounts.forms import UserAvatarForm, UserModelForm
 from app.accounts.models import User
+from django.contrib.auth.views import PasswordResetView
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.views import PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetView
+from django.urls import reverse_lazy
 
 
 def login_custom_view(request):
@@ -65,3 +73,32 @@ def update_avatar(request, user_id):
         form = UserAvatarForm(instance=user)
 
     return render(request, 'accounts/editar_perfil.html', {'form': form})
+
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
+    success_url = reverse_lazy('account:password_reset_done')
+    email_template_name = 'registration/password_reset_email.html'
+    form_class = PasswordResetForm 
+    
+    def form_valid(self, form):
+        form.save(
+            from_email='movebla@movebla.cash', 
+            request=self.request
+        )
+        return super().form_valid(form)
+
+    
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'registration/password_reset_done.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+    success_url = reverse_lazy('account:password_reset_complete')
+    form_class = SetPasswordForm
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
