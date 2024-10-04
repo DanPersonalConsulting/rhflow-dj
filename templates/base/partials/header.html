@@ -42,10 +42,11 @@
           <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <small class="me-2 fw-bold">{{ user.username }}</small> 
-              <img src="{% if user.is_authenticated and user.avatar %}{{ user.avatar.url }}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" 
+              <div>{{user.avatar}}</div>
+              <img src="{% if user.is_authenticated and user.avatar %}{{ user.avatar }}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" 
                   alt="Avatar" 
                   class="rounded-circle" 
-                  width="30" 
+                  width="24" 
                   height="24">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuUser">
