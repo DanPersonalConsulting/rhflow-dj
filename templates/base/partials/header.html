@@ -1,15 +1,13 @@
 {% load static %}
+
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
-    <div class="container">
-      <div class="row">
-          {% include "base/partials/name_system.html" %}
-          {% if user.organizacoes.count > 0 %}
-          <span class="fw-bold small-text">{{ user.organizacoes.all.0.organizacao_nome }}</span>
-          {% else %}
-          <span class="fw-light small-text"> Organização não Cadastrada</span>
-          {% endif %}
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'img/logo_rhflow.png' %}" alt="" width="30" height="24">
+          <span class="me-0 text-logo">RHFlow <small class="fw-light">v1.0</small> </span> 
+        </a>
+          
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -25,8 +23,6 @@
               Cadastros
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              {% comment %} <li><a class="dropdown-item" href="{% url 'empresa:organizacao_create' %}">Organização</a></li> {% endcomment %}
-              {% comment %} <li><a class="dropdown-item" href="">Porte</a></li> {% endcomment %}
               {% if user.is_authenticated and user.is_org_admin %}
                 <li><a class="dropdown-item" href="{% url 'empresa:gestor_rh_list' %}">Gestor RH</a></li>
               {% endif %}
@@ -39,16 +35,18 @@
 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <a class="fw-bold small-text" href="{% url 'empresa:empresas_relacionadas' %}">
-               <span id="empresaSelecionadaNome"></span> 
+            <a class="nav-link d-flex align-items-center fw-bold" href="{% url 'empresa:empresas_relacionadas' %}">
+              <span id="empresaSelecionadaNome"></span> 
             </a>
+          </li>
+          <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="me-2 fw-bold small-text">{{ user.username }}</span> 
+              <small class="me-2 fw-bold">{{ user.username }}</small> 
               <img src="{% if user.is_authenticated and user.avatar %}{{ user.avatar.url }}{% else %}{% static 'img/default_avatar.png' %}{% endif %}" 
-                   alt="Avatar" 
-                   class="rounded-circle" 
-                   width="30" 
-                   height="30">
+                  alt="Avatar" 
+                  class="rounded-circle" 
+                  width="30" 
+                  height="24">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuUser">
               {% if user.is_authenticated and user.is_org_admin or user.is_hr_manager %}
@@ -63,8 +61,22 @@
         </ul>
       </div>
     </div>
+  </div>
   </nav>
 </header>
+<style>
+  .text-logo {
+      font-size: 18px;
+      font-weight: 900 !important;
+      color: #092e20; 
+  }
+
+  .logo {
+      width: 42px;
+      height: auto;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const empresaSelecionada = localStorage.getItem('empresaSelecionada');
