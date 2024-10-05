@@ -1,6 +1,4 @@
-import json
-from datetime import datetime
-from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import update_session_auth_hash, authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm, AuthenticationForm
@@ -8,16 +6,15 @@ from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import render, get_object_or_404, redirect
 from app.accounts.forms import UserAvatarForm, UserModelForm
 from app.accounts.models import User
-from django.contrib.auth.views import PasswordResetView
 from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.views import PasswordResetDoneView
 from django.contrib.auth.views import PasswordResetConfirmView
-from django.urls import reverse_lazy
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.views import PasswordResetCompleteView
 from django.contrib.auth.views import PasswordResetView
-from django.urls import reverse_lazy
 
 
 def login_custom_view(request):
@@ -102,3 +99,9 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
+
+
+class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'registration/password_change.html'
+    success_url = reverse_lazy('account:change_password')
+    success_message = "Senha alterada com sucesso!"
